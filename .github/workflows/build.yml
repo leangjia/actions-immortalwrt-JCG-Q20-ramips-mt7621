@@ -151,9 +151,11 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        VERSION1="${{ matrix.branch #*-}}"
-        echo -e "🎉 ${{ matrix.platform }} 平台\n✅ ${{ matrix.branch }} 源码\n❗️ ip地址 : 192.168.2.1\n✅ 预装 DDNS-GO" >> release.txt
-        echo "release_tag=$(date +"%Y.%m.%d-${VERSION1}_${{ matrix.platform }}")" >> $GITHUB_OUTPUT
+        BRANCH="${{ matrix.branch }}"
+        VERSION1="${BRANCH#*-}"
+        PLATFORM="${{ matrix.platform }}"
+        echo -e "🎉 ${PLATFORM} 平台\n✅ ${BRANCH} 源码\n❗️ ip地址 : 192.168.2.1\n✅ 预装 DDNS-GO" >> release.txt
+        echo "release_tag=$(date +"%Y.%m.%d-${VERSION1}_${PLATFORM}")" >> $GITHUB_OUTPUT
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件到发布
