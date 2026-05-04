@@ -19,12 +19,13 @@ on:
           - openwrt-23.05
           - openwrt-24.10
       platform:
-        description: '目标平台'
+        description: '目标设备'
         required: true
         type: choice
         options:
           - x86_64
-          - mt7621
+          - jcg-q20
+          - wr1200js
 
   schedule:
     - cron: '0 12 * * 0'  # 每周日 12:00 UTC (北京时间 20:00)
@@ -35,7 +36,7 @@ env:
   ENV_SH: scripts/environment.sh
   REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: ${{ github.event.inputs.branch || 'openwrt-24.10' }}
-  PLATFORM: ${{ github.event.inputs.platform || 'all' }}
+  PLATFORM: ${{ github.event.inputs.platform || 'jcg-q20' }}
   SETTINGS_SH: scripts/init-settings.sh
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
@@ -49,11 +50,11 @@ jobs:
     strategy:
       matrix:
         branch: ${{ fromJson(github.event_name == 'workflow_dispatch' && format('["{0}"]', github.event.inputs.branch) || '["openwrt-24.10"]') }}
-        platform: ${{ fromJson(github.event_name == 'workflow_dispatch' && format('["{0}"]', github.event.inputs.platform) || '["x86_64", "mt7621"]') }}
+        platform: ${{ fromJson(github.event_name == 'workflow_dispatch' && format('["{0}"]', github.event.inputs.platform) || '["jcg-q20", "wr1200js", "x86_64"]') }}
       fail-fast: false
 
     env:
-      PLATFORM_FILE: configs/Target-${{ matrix.platform == 'x86_64' && 'X86' || 'mt7621' }}.txt
+      PLATFORM_FILE: ${{ matrix.platform == 'x86_64' && 'configs/Target-X86.txt' || format('configs/Target-{0}.txt', matrix.platform) }}
 
     steps:
     - name: 检查代码
