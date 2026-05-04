@@ -1,0 +1,46 @@
+# 编译产物
+Actions-immortalwrt/
+docs/
+source/
+output/
+dl/
+feeds/
+tmp/
+staging_dir/
+build_dir/
+要求.txt
+
+# 编译日志
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 密钥和敏感信息
+*.key
+*.pem
+*.p12
+*.jks
+*.env
+.env.*
+! .env.example
+secrets/
+credentials/
+
+# 配置文件（可能包含敏感信息）
+.config
+.config.old
+.config.prev
+
+# 下载缓存
+downloads/
+ccache/
