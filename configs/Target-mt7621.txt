@@ -29,3 +29,6 @@ CONFIG_PACKAGE_luci-app-nlbwmon=y
 
 # 组件调整
 CONFIG_PACKAGE_htop=y
+
+# 禁用 ext4 镜像（ramips 设备使用 squashfs）
+CONFIG_TARGET_ROOTFS_EXT4FS=n
