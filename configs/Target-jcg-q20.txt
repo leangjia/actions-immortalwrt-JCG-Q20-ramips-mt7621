@@ -2,6 +2,9 @@
 CONFIG_TARGET_ramips=y
 CONFIG_TARGET_ramips_mt7621=y
 
+# 禁用多设备支持（单选模式）
+# CONFIG_TARGET_MULTI_PROFILE is not set
+
 # 设备 ID (JCG Q20)
 CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_jcg_q20=y
 
